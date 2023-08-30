@@ -1,1 +1,5 @@
+com\imt\framework\web\delivecrous\ressources\LivreResource.class
+com\imt\framework\web\delivecrous\entities\Livre.class
+com\imt\framework\web\delivecrous\JerseyConfig.class
+com\imt\framework\web\delivecrous\repositories\LivreRepository.class
 com\imt\framework\web\delivecrous\DelivecrousApplication.class
