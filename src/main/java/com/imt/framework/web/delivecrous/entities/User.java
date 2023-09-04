@@ -1,6 +1,9 @@
 // Source code is decompiled from a .class file using FernFlower decompiler.
 package com.imt.framework.web.delivecrous.entities;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
+import java.security.MessageDigest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +28,15 @@ public class User {
     private String adresse;
     private String login;
     private String password;
+    private double soldeCarteCrous;
+
+    public double getSoldeCarteCrous() {
+        return soldeCarteCrous;
+    }
+
+    public void setSoldeCarteCrous(double soldeCarteCrous) {
+        this.soldeCarteCrous = soldeCarteCrous;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -62,8 +74,16 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String plainPassword) {
+        Argon2 argon2 = Argon2Factory.create();
+        String hash = argon2.hash(10, 65536, 1, plainPassword);
+        this.password = hash;
+    }
+
+    public static boolean verifyPassword(String hashedPassword, String plainPassword) {
+        Argon2 argon2 = Argon2Factory.create();
+        boolean verified = argon2.verify(hashedPassword, plainPassword);
+        return verified;
     }
 
     public String getLastName() {
