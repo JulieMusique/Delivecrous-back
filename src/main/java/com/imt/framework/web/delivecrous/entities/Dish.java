@@ -14,13 +14,11 @@ public class Dish {
     private long id;
     private String title;
     private String description;
-    //TODO : Changer ca après
     private Set<String> categories;
     private int price;
     private String image;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //jointure -> renseigner
-    ///FetchType.EAGER charge par défaut
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
     private Set<String> allergenList;
 
