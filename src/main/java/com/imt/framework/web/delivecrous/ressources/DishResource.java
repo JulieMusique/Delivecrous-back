@@ -69,4 +69,7 @@ public class DishResource {
 DROP TABLE DISH_INGREDIENT_LIST;
 DROP TABLE DISH;
 DROP TABLE INGREDIENT;
+
+http://localhost:8080/DelivCROUS/dishs
+http://localhost:8080/h2
  */
