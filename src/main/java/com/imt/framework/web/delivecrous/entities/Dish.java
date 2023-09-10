@@ -11,12 +11,12 @@ import java.util.Set;
 public class Dish {
     @Id
     @GeneratedValue //Primary Key
-    private long id;
+    private long idDish;
     private String title;
     private String description;
     //TODO : Changer ca après
     private Set<String> categories;
-    private int price;
+    private double price;
     private String image;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //jointure -> renseigner
@@ -29,12 +29,12 @@ public class Dish {
         allergenList = new HashSet<>();
         categories = new HashSet<>();
     }
-    public long getId() {
-        return id;
+    public long getIdDish() {
+        return idDish;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdDish(long id) {
+        this.idDish = id;
     }
 
     public String getTitle() {
@@ -53,11 +53,11 @@ public class Dish {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -92,5 +92,12 @@ public class Dish {
     public void setAllergenList(Set<String> allergenList) {
         this.allergenList = allergenList;
     }
+    
+	@Override
+	public String toString() {
+		return "Dish [idDish=" + idDish + ", title=" + title + ", description=" + description + ", categories="
+				+ categories + ", price=" + price + ", image=" + image + ", ingredientList=" + ingredientList
+				+ ", allergenList=" + allergenList + "]";
+	}
 
 }

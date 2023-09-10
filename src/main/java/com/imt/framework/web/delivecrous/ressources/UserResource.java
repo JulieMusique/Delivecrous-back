@@ -1,7 +1,7 @@
 // Source code is decompiled from a .class file using FernFlower decompiler.
 package com.imt.framework.web.delivecrous.ressources;
 
-import com.imt.framework.web.delivecrous.entities.User;
+import com.imt.framework.web.delivecrous.entities.Users;
 import com.imt.framework.web.delivecrous.repositories.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
@@ -28,26 +28,26 @@ public class UserResource {
 
     @GET
     @Produces({ "application/json" })
-    public List<User> getUser(@QueryParam("identifiant") Long identifiant) {
+    public List<Users> getUser(@QueryParam("identifiant") Long identifiant) {
         if (identifiant != null) {
-            return this.userRepository.getUserWithIdFilter(identifiant);
+            return this.userRepository.getUsersWithIdFilter(identifiant);
         }
         return this.userRepository.findAll();
     }
 
     @POST
     @Consumes({ "application/json" })
-    public void createUser(@RequestBody @NotNull User user) {
+    public void createUser(@RequestBody @NotNull Users user) {
         this.userRepository.save(user);
     }
 
     @PUT
     @Consumes({ "application/json" })
     @Path("/{id}")
-    public void updateUser(@PathParam("id") @NotNull Long id, @RequestBody User user) throws Exception {
-        Optional<User> searchedUser = this.userRepository.findById(id);
+    public void updateUser(@PathParam("id") @NotNull Long id, @RequestBody Users user) throws Exception {
+        Optional<Users> searchedUser = this.userRepository.findById(id);
         if (!searchedUser.isEmpty()) {
-            User userToUpdate = (User) searchedUser.get();
+            Users userToUpdate = (Users) searchedUser.get();
             userToUpdate.setLastName(user.getLastName());
             userToUpdate.setFirstName(user.getFirstName());
             userToUpdate.setEmail(user.getEmail());
