@@ -1,4 +1,3 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.imt.framework.web.delivecrous.ressources;
 
 import com.imt.framework.web.delivecrous.entities.Users;

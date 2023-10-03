@@ -1,4 +1,3 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
 package com.imt.framework.web.delivecrous.entities;
 
 import de.mkammerer.argon2.Argon2;
@@ -29,8 +28,9 @@ public class Users {
     private String login;
     private String password;
     private double soldeCarteCrous;
-    
-    public Users() {}
+
+    public Users() {
+    }
 
     public double getSoldeCarteCrous() {
         return soldeCarteCrous;
@@ -112,11 +112,11 @@ public class Users {
         this.adresse = adresse;
     }
 
-	@Override
-	public String toString() {
-		return "Users [idUser=" + idUser + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email
-				+ ", phone=" + phone + ", adresse=" + adresse + ", login=" + login + ", password=" + password
-				+ ", soldeCarteCrous=" + soldeCarteCrous + "]";
-	}
+    @Override
+    public String toString() {
+        return "Users [idUser=" + idUser + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email
+                + ", phone=" + phone + ", adresse=" + adresse + ", login=" + login + ", password=" + password
+                + ", soldeCarteCrous=" + soldeCarteCrous + "]";
+    }
 
 }
