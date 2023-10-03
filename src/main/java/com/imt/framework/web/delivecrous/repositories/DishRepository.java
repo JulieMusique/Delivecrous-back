@@ -12,6 +12,7 @@ import java.util.List;
 public interface DishRepository extends JpaRepository<Dish, Long> {  //Long pour l'id qui est de type long
     @Query("select d from Dish d where d.price < :maxPrice")  // : -> pour mettre un paramètre/variable
     List<Dish> getDishsWithMaxPriceFilter(@Param("maxPrice") Double maxPrice);
-    @Query("select d from Dish d where d.title = :title")
-    Dish existsTitle(@Param("title") String title);
+
+    /*@Query("SELECT d FROM Dish d WHERE ARRAY_CONTAINS(d.categories, :selectedCategory)")
+    List<Dish> getDishsWithSelectedCategory(@Param("selectedCategory") String selectedCategory);*/
 }
