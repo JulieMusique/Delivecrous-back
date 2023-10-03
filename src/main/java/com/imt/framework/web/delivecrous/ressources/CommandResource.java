@@ -3,20 +3,21 @@
  */
 package com.imt.framework.web.delivecrous.ressources;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.imt.framework.web.delivecrous.dto.ComposeDto;
+import com.imt.framework.web.delivecrous.dto.CreateCommandDto;
 import com.imt.framework.web.delivecrous.entities.Allergen;
 import com.imt.framework.web.delivecrous.entities.Category;
 import com.imt.framework.web.delivecrous.entities.Command;
 import com.imt.framework.web.delivecrous.entities.Compose;
 import com.imt.framework.web.delivecrous.entities.Dish;
-import com.imt.framework.web.delivecrous.entities.Ingredient;
 import com.imt.framework.web.delivecrous.entities.QuantityDishKey;
 import com.imt.framework.web.delivecrous.entities.Users;
 import com.imt.framework.web.delivecrous.repositories.CommandRepository;
@@ -24,10 +25,6 @@ import com.imt.framework.web.delivecrous.repositories.ComposeRepository;
 import com.imt.framework.web.delivecrous.repositories.DishRepository;
 import com.imt.framework.web.delivecrous.repositories.UserRepository;
 
-import dto.ComposeDto;
-import dto.CreateCommandDto;
-import dto.DishDto;
-import dto.IngredientDto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -66,17 +63,16 @@ public class CommandResource {
 	
 	@POST
 	@Consumes(value= "application/json")
-	public void createCommand(@NotNull @RequestBody CreateCommandDto command) throws Exception {
-		System.out.println(command);
+	public String createCommand(@NotNull @RequestBody CreateCommandDto command) throws Exception {
+		
 		double totalAmount = 0;
 		Command newCommand = new Command();
 		Users user = userRepository.getUserWithIdFilter(command.getIdUser());
+		
 		if( user != null) {
 			newCommand.setIdUser(user);
 		}else {
-			//renvoyer pour créer un utilisateur 
-			// ou ne pas autoriser de mettre dans le panier
-			// ou mettre un utilisateur anonyme par défaut
+			return "Vous devez vous identifier pour commander";
 		}
 		newCommand.setIdUser(user);
 	    newCommand.setOrderDate(command.getOrderDate());
@@ -85,59 +81,31 @@ public class CommandResource {
         newCommand.setOrderStatus(command.getOrderStatus());
         newCommand.setDuration(command.getDuration());
         commandRepository.save(newCommand);
-        System.out.println(newCommand);
+  
 		for (ComposeDto composeItem : command.getComposeItems()) {
-			System.out.println(composeItem);
             Compose composeEntry = new Compose();
-            /*Dish dish = dishRepository.existsTitle(composeItem.getDish().getTitle());
-            System.out.println(dish);
-            System.out.println(newCommand.getIdCommand());
-            if( dish != null) {
-            	QuantityDishKey key = new QuantityDishKey(newCommand.getIdCommand(), dish.getIdDish());
-            	composeEntry.setId(key);
-            	composeEntry.setDish(dish);
-            }else {
-            	dish = new Dish();
-            	DishDto dishDto = composeItem.getDish();
-                dish.setTitle(dishDto.getTitle());
-                dish.setDescription(dishDto.getDescription());
-                dish.setCategories(dishDto.getCategories());
-                dish.setPrice(dishDto.getPrice());
-                dish.setImage(dishDto.getImage());
-
-                // Vous devez également convertir la liste des ingrédients
-                List<Ingredient> ingredients = new ArrayList<>();
-                for (IngredientDto ingredientDto : dishDto.getIngredientList()) {
-                    Ingredient ingredient = new Ingredient();
-                    ingredient.setName(ingredientDto.getName());
-                    ingredient.setCalorie(ingredientDto.getCalorie());
-                    // Autres attributs de Ingredient
-                    ingredients.add(ingredient);
-                }
-                dish.setIngredientList(ingredients);*/
-            	Dish dish = composeItem.getDish();
-            	composeEntry.setDish(dish);
-            	dish = composeEntry.getDish();
-                for(int i=0; i< dish.getIngredientList().size(); i++){
-                    Category.testCategories(dish.getIngredientList().get(i).getCategories());
-                    Allergen.testAllergens(dish.getIngredientList().get(i).getAllergenList());
-                }
-                Category.initDishCategories(dish);
-                Allergen.initDishAllergens(dish);
-            	dishRepository.save(dish);
-            	QuantityDishKey key = new QuantityDishKey(newCommand.getIdCommand(), dish.getIdDish());
-            	composeEntry.setId(key);
-            	composeEntry.setDish(dish);
-            //}
+        	Dish dish = composeItem.getDish();
+        	composeEntry.setDish(dish);
+        	dish = composeEntry.getDish();
+            for(int i=0; i< dish.getIngredientList().size(); i++){
+                Category.testCategories(dish.getIngredientList().get(i).getCategories());
+                Allergen.testAllergens(dish.getIngredientList().get(i).getAllergenList());
+            }
+            Category.initDishCategories(dish);
+            Allergen.initDishAllergens(dish);
+        	dishRepository.save(dish);
+        	QuantityDishKey key = new QuantityDishKey(newCommand.getIdCommand(), dish.getIdDish());
+        	composeEntry.setId(key);
+        	composeEntry.setDish(dish);
             composeEntry.setCommand(newCommand);
             composeEntry.setQuantity(composeItem.getQuantity());
             totalAmount += composeEntry.getDish().getPrice() * composeEntry.getQuantity();
             // Sauvegarder chaque entrée Compose dans la base de données
-            System.out.println(composeEntry);
             composeRepository.save(composeEntry);
         }
 		newCommand.setTotalAmount(totalAmount);
 		commandRepository.save(newCommand);
+		return "La commande a bien été créée";
 	}
 	
 	@PUT
@@ -177,6 +145,27 @@ public class CommandResource {
 		composeRepository.save(compose);
 	}
 	
+	@GET
+	@Produces(value = "application/json")
+	@Path("/history")
+	public List<Command> getHistory() {
+		return commandRepository.findHistoryCommands(Date.valueOf(LocalDate.now()));
+	}
+	
+	@GET
+	@Produces(value = "application/json")
+	@Path("/notOrdered")
+	public List<Command> getCommandsNotOrdered() {
+		return commandRepository.findCommandsNotOrdered();
+	}
+	
+	@GET
+	@Produces(value = "application/json")
+	@Path("/delivered")
+	public List<Command> getCommandsDelivered() {
+		return commandRepository.findDeliveredCommands(Date.valueOf(LocalDate.now()));
+	}
+	
 	@DELETE
 	@Path("/{idCommand}/remove/{idDish}")
 	public void removeDishFromCommand(@NotNull @PathParam("idCommand") Long idCommand, @PathParam("idDish") Long idDish) {
@@ -195,8 +184,13 @@ public class CommandResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public void deleteBook(@NotNull @PathParam("id") Long id) {
+	public void deleteCommand(@NotNull @PathParam("id") Long id) {
+		System.out.println(id);
 		//supprimer dans compose
+		Command command = commandRepository.findById(id).get();
+		for(Compose dish : command.getComposeItems()) {
+			composeRepository.deleteById(dish.getId());
+		}
 		commandRepository.deleteById(id);
 	}
 }

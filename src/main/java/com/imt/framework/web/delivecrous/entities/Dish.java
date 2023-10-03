@@ -17,7 +17,7 @@ public class Dish {
     //TODO : Changer ca après
     private Set<String> categories;
     private double price;
-    private String image;
+    private String imagePath;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //jointure -> renseigner
     ///FetchType.EAGER charge par défaut
@@ -62,11 +62,11 @@ public class Dish {
     }
 
     public String getImage() {
-        return image;
+        return imagePath;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imagePath = image;
     }
 
     public Set<String> getCategories() {
@@ -96,7 +96,7 @@ public class Dish {
 	@Override
 	public String toString() {
 		return "Dish [idDish=" + idDish + ", title=" + title + ", description=" + description + ", categories="
-				+ categories + ", price=" + price + ", image=" + image + ", ingredientList=" + ingredientList
+				+ categories + ", price=" + price + ", image=" + imagePath + ", ingredientList=" + ingredientList
 				+ ", allergenList=" + allergenList + "]";
 	}
 

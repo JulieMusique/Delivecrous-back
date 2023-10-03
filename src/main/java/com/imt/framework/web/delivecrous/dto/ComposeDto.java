@@ -1,7 +1,4 @@
-/**
- * 
- */
-package dto;
+package com.imt.framework.web.delivecrous.dto;
 
 import com.imt.framework.web.delivecrous.entities.Dish;
 

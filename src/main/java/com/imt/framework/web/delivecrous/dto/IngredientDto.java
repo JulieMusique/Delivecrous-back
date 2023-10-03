@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dto;
+package com.imt.framework.web.delivecrous.dto;
 
 import java.util.List;
 

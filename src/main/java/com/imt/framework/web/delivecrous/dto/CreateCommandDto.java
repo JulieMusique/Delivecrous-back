@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dto;
+package com.imt.framework.web.delivecrous.dto;
 
 import java.sql.Date;
 import java.util.List;

@@ -28,8 +28,6 @@ public class QuantityDishKey implements Serializable{
 	}
 
 	public QuantityDishKey(Long idCommand, Long idDish) {
-		System.out.println(idCommand);
-		System.out.println(idDish);
 		this.idCommand = idCommand;
 		this.idDish = idDish;
 	}

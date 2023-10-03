@@ -21,5 +21,6 @@ import com.imt.framework.web.delivecrous.entities.QuantityDishKey;
 public interface ComposeRepository extends JpaRepository<Compose, QuantityDishKey>{
 	@Query("select c from Compose c where c.id.idCommand = :idCommand and c.id.idDish = :idDish")
     Compose findByKey(@Param("idCommand") Long idCommand, @Param("idDish") Long idDish);
+	
 }
 
