@@ -1,5 +1,4 @@
-package com.imt.framework.web.delivecrous.ressources;
-
+package com.imt.framework.web.delivecrous.resources;
 
 import com.imt.framework.web.delivecrous.entities.Allergen;
 import com.imt.framework.web.delivecrous.entities.Category;
@@ -8,21 +7,29 @@ import com.imt.framework.web.delivecrous.repositories.DishRepository;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
-@Path("dishs")  //sur url, pour accéder aux plats
+@Path("dishs")  //sur url, pour accéder aux plats  
 public class DishResource {
     @Autowired
     private DishRepository dishRepository;
 
     @GET
     @Produces(value="application/json")
-    public List<Dish> getDishs(@QueryParam("maxPrice") Double maxPrice) {
+    public List<Dish> getDishs(@QueryParam("maxPrice") Double maxPrice,
+                               @QueryParam("selectedCategory") String selectedCategory) {
         if(maxPrice != null)
             return dishRepository.getDishsWithMaxPriceFilter(maxPrice);
+        /*if(selectedCategory != null){
+            System.out.println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+            System.out.println(selectedCategory);
+            return dishRepository.getDishsWithSelectedCategory(selectedCategory);
+        }*/
         return dishRepository.findAll();
     }
 
