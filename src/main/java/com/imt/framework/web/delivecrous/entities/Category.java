@@ -3,13 +3,33 @@ package com.imt.framework.web.delivecrous.entities;
 import java.util.*;
 
 public enum Category {
-    VEGETARIAN,
-    MEAT,
-    FISH,
-    HEALTHY,
-    FAT;
+    VEGETARIAN("VEGETARIAN"),
+    MEAT("MEAT"),
+    FISH("FISH"),
+    HEALTHY("HEALTHY"),
+    FAT("FAT");
+	
+	private String name;
+	
+	Category(String name){
+		this.name = name;
+	}
 
-    public static boolean contain(String value){
+    /**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static boolean contain(String value){
         for(int i=0; i<Category.values().length; i++){
             if(Objects.equals(value, Category.values()[i].name()))
                 return true;

@@ -11,12 +11,12 @@ import java.util.Set;
 public class Dish {
     @Id
     @GeneratedValue //Primary Key
-    private long id;
+    private long idDish;
     private String title;
     private String description;
     private Set<String> categories;
-    private int price;
-    private String image;
+    private double price;
+    private String imagePath;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
@@ -27,12 +27,12 @@ public class Dish {
         allergenList = new HashSet<>();
         categories = new HashSet<>();
     }
-    public long getId() {
-        return id;
+    public long getIdDish() {
+        return idDish;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdDish(long id) {
+        this.idDish = id;
     }
 
     public String getTitle() {
@@ -51,20 +51,20 @@ public class Dish {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
     public String getImage() {
-        return image;
+        return imagePath;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imagePath = image;
     }
 
     public Set<String> getCategories() {
@@ -90,5 +90,12 @@ public class Dish {
     public void setAllergenList(Set<String> allergenList) {
         this.allergenList = allergenList;
     }
+    
+	@Override
+	public String toString() {
+		return "Dish [idDish=" + idDish + ", title=" + title + ", description=" + description + ", categories="
+				+ categories + ", price=" + price + ", image=" + imagePath + ", ingredientList=" + ingredientList
+				+ ", allergenList=" + allergenList + "]";
+	}
 
 }

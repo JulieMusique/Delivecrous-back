@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 //La table Favorite permet aux utilisateurs de marquer desplats comme favoris.
 
-
 @Entity
 @Table(name = "favoris")
 public class Favoris {
@@ -15,7 +14,7 @@ public class Favoris {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     @ManyToOne
     @JoinColumn(name = "plat_id")
@@ -24,33 +23,33 @@ public class Favoris {
     public Favoris() {
     }
 
-    public Favoris(User user, Dish plat) {
+    public Favoris(Users user, Dish plat) {
         this.user = user;
         this.plat = plat;
     }
- // Getters and setters
+    // Getters and setters
 
- public Long getId() {
-    return id;
-}
+    public Long getId() {
+        return id;
+    }
 
-public void setId(Long id) {
-    this.id = id;
-}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public User getUser() {
-    return user;
-}
+    public Users getUser() {
+        return user;
+    }
 
-public void setUser(User user) {
-    this.user = user;
-}
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
-public Dish getPlat() {
-    return plat;
-}
+    public Dish getPlat() {
+        return plat;
+    }
 
-public void setPlat(Dish  plat) {
-    this.plat = plat;
-}
+    public void setPlat(Dish plat) {
+        this.plat = plat;
+    }
 }

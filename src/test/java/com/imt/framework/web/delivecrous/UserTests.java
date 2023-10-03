@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import com.imt.framework.web.delivecrous.entities.User;
+import com.imt.framework.web.delivecrous.entities.Users;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
 
 public class UserTests {
 
-    private User user;
+    private Users user;
 
     @BeforeEach
     public void setUp() {
-        user = new User();
+        user = new Users();
     }
 
     @Test
@@ -35,21 +35,21 @@ public class UserTests {
 
     @Test
     public void testGetEmail() {
-        User user = new User();
+        Users user = new Users();
         user.setEmail("john@example.com");
         assertEquals("john@example.com", user.getEmail());
     }
 
     @Test
     public void testGetPhone() {
-        User user = new User();
+        Users user = new Users();
         user.setPhone("1234567890");
         assertEquals("1234567890", user.getPhone());
     }
 
     @Test
     public void testGetLogin() {
-        User user = new User();
+        Users user = new Users();
         user.setLogin("john_doe");
         assertEquals("john_doe", user.getLogin());
     }
@@ -58,7 +58,7 @@ public class UserTests {
     public void testSetPassword() {
         String plainPassword = "securePassword123";
 
-        User user = new User();
+        Users user = new Users();
         user.setPassword(plainPassword);
 
         // Manually verify the hashed password
@@ -71,7 +71,7 @@ public class UserTests {
     public void testVerifyPassword() {
         String plainPassword = "securePassword123";
 
-        User user = new User();
+        Users user = new Users();
         user.setPassword(plainPassword);
 
         boolean isValid = user.verifyPassword(user.getPassword(), plainPassword);
@@ -80,16 +80,16 @@ public class UserTests {
 
     @Test
     public void testGetAdresse() {
-        User user = new User();
+        Users user = new Users();
         user.setAdresse("123 Main St");
         assertEquals("123 Main St", user.getAdresse());
     }
 
     @Test
     public void testGetId() {
-        User user = new User();
-        user.setId(1L);
-        assertEquals(1L, user.getId());
+        Users user = new Users();
+        user.setIdUser(1L);
+        assertEquals(1L, user.getIdUser());
     }
 
     @Test
