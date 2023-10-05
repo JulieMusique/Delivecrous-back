@@ -13,8 +13,8 @@ public interface DishRepository extends JpaRepository<Dish, Long> {  //Long pour
     @Query("select d from Dish d where d.price < :maxPrice")  // : -> pour mettre un paramètre/variable
     List<Dish> getDishsWithMaxPriceFilter(@Param("maxPrice") Double maxPrice);
 
-    /*@Query("SELECT d FROM Dish d WHERE ARRAY_CONTAINS(d.categories, :selectedCategory)")
-    List<Dish> getDishsWithSelectedCategory(@Param("selectedCategory") String selectedCategory);*/
+    @Query(value = "SELECT d FROM Dish d WHERE ARRAY_CONTAINS(d.categories, :selectedCategory)", nativeQuery = true)
+    List<Dish> getDishsWithSelectedCategory(@Param("selectedCategory") String selectedCategory);
 
     /*@Query("SELECT * FROM DISH WHERE 'selectedAllergens' = ANY(ALLERGEN_LIST)")
     List<Dish> getDishsWithSelectedAllergens(@Param("selectedAllergens") List<String> selectedAllergens);*/
