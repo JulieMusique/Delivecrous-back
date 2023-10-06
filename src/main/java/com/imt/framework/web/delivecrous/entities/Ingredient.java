@@ -11,7 +11,7 @@ import java.util.Set;
 public class Ingredient {
 
     @Id
-    @GeneratedValue //Primary Key
+    @GeneratedValue
     private long idIngredient;
     private String name;
     private int calorie;

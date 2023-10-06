@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Dish {
     @Id
-    @GeneratedValue //Primary Key
+    @GeneratedValue
     private long idDish;
     private String title;
     private String description;
@@ -18,8 +18,7 @@ public class Dish {
     private double price;
     private String imagePath;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //jointure -> renseigner
-    ///FetchType.EAGER charge par défaut
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
     private Set<String> allergenList;
 
