@@ -25,10 +25,9 @@ public class DishResource {
                                @QueryParam("selectedCategory") String selectedCategory) {
         if(maxPrice != null)
             return dishRepository.getDishsWithMaxPriceFilter(maxPrice);
-        /*if(selectedCategory != null){
-            System.out.println(selectedCategory);
+        if(selectedCategory != null){
             return dishRepository.getDishsWithSelectedCategory(selectedCategory);
-        }*/
+        }
         return dishRepository.findAll();
     }
 
@@ -73,8 +72,12 @@ public class DishResource {
 
 /*
 DROP TABLE DISH_INGREDIENT_LIST;
-DROP TABLE DISH;
 DROP TABLE INGREDIENT;
+DROP TABLE COMPOSE
+DROP TABLE FAVORIS
+DROP TABLE USERS
+DROP TABLE DISH;
+
 
 http://localhost:8080/DelivCROUS/dishs
 http://localhost:8080/h2
