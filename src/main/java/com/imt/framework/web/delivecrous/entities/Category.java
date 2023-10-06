@@ -37,6 +37,9 @@ public enum Category {
         return false;
     }
 
+    /**
+     * Test if value in categories set is contained in Enum Category.
+     */
     public static void testCategories(Set<String> categories) throws Exception {
         for (String category : categories) {
             if (!Category.contain(category))
@@ -44,10 +47,12 @@ public enum Category {
         }
     }
 
+    /**
+     * Init category set by getting categories from Ingredients
+     */
     public static void initDishCategories(Dish dish) {
         Set<String> categories = new HashSet<>();
         for(int i=0; i<dish.getIngredientList().size(); i++){
-            //categories = dish.getCategories();
             categories.addAll(dish.getIngredientList().get(i).getCategories());
         }
         if(categories.contains("VEGETARIAN")){

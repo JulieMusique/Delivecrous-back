@@ -5,6 +5,7 @@ import com.imt.framework.web.delivecrous.ressources.DishResource;
 import com.imt.framework.web.delivecrous.ressources.FavorisResource;
 import com.imt.framework.web.delivecrous.ressources.UserResource;
 
+import com.project.cors.CorsFilter;
 import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ public class JerseyConfig extends ResourceConfig {
         register(CommandResource.class);
         register(UserResource.class);
         register(FavorisResource.class);
+        register(CorsFilter.class);
     }
 
 }
