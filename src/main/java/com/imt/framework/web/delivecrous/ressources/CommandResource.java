@@ -19,7 +19,7 @@ import com.imt.framework.web.delivecrous.entities.Command;
 import com.imt.framework.web.delivecrous.entities.Compose;
 import com.imt.framework.web.delivecrous.entities.Dish;
 import com.imt.framework.web.delivecrous.entities.QuantityDishKey;
-import com.imt.framework.web.delivecrous.entities.Users;
+import com.imt.framework.web.delivecrous.entities.User;
 import com.imt.framework.web.delivecrous.repositories.CommandRepository;
 import com.imt.framework.web.delivecrous.repositories.ComposeRepository;
 import com.imt.framework.web.delivecrous.repositories.DishRepository;
@@ -67,12 +67,10 @@ public class CommandResource {
 		
 		double totalAmount = 0;
 		Command newCommand = new Command();
-		Users user = userRepository.getUserWithIdFilter(command.getIdUser());
+		User user = (User) userRepository.getUserWithIdFilter(command.getIdUser());
 		
 		if( user != null) {
 			newCommand.setIdUser(user);
-		}else {
-			return "Vous devez vous identifier pour commander";
 		}
 		newCommand.setIdUser(user);
 	    newCommand.setOrderDate(command.getOrderDate());

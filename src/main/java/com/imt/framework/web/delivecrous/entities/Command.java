@@ -30,7 +30,7 @@ public class Command {
 	private Long idCommand;
 	@ManyToOne
     @JoinColumn
-	private Users idUser;
+	private User idUser;
 	//@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate; // Date de la commande
 	private String deliveryAdress; // Adresse de livraison
@@ -137,14 +137,14 @@ public class Command {
 	/**
 	 * @return the idUser
 	 */
-	public Users getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
 	/**
 	 * @param idUser the idUser to set
 	 */
-	public void setIdUser(Users idUser) {
+	public void setIdUser(User idUser) {
 		this.idUser = idUser;
 	}
 
