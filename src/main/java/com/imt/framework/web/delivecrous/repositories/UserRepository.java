@@ -10,6 +10,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UserRepository extends JpaRepository<User, Long> {
-   @Query("select l from User l where l.id = :identifiant")
-   List<User> getUserWithIdFilter(@Param("identifiant") Long identifiant);
+    @Query("select l from User l where l.id = :identifiant")
+    List<User> getUserWithIdFilter(@Param("identifiant") Long identifiant);
+
+    @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.email = ?1")
+    boolean existsByEmail(String email);
+
+    @Query(value = "SELECT * FROM users u WHERE u.email = :email", nativeQuery = true)
+    User findByEmail(@Param("email") String email);
+
 }

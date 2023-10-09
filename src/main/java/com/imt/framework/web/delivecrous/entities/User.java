@@ -28,13 +28,15 @@ public class User {
     private String adresse;
     private String login;
     private String password;
-    private double soldeCarteCrous;
 
-    public double getSoldeCarteCrous() {
+    @Column(name = "solde_carte_crous")
+    private Double soldeCarteCrous;
+
+    public Double getSoldeCarteCrous() {
         return soldeCarteCrous;
     }
 
-    public void setSoldeCarteCrous(double soldeCarteCrous) {
+    public void setSoldeCarteCrous(Double soldeCarteCrous) {
         this.soldeCarteCrous = soldeCarteCrous;
     }
 
@@ -80,7 +82,7 @@ public class User {
         this.password = hash;
     }
 
-    public static boolean verifyPassword(String hashedPassword, String plainPassword) {
+    public boolean verifyPassword(String hashedPassword, String plainPassword) {
         Argon2 argon2 = Argon2Factory.create();
         boolean verified = argon2.verify(hashedPassword, plainPassword);
         return verified;
