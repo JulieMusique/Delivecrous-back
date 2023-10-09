@@ -9,9 +9,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public interface DishRepository extends JpaRepository<Dish, Long> {  //Long pour l'id qui est de type long
-    @Query("select d from Dish d where d.price < :maxPrice")  // : -> pour mettre un paramètre/variable
+public interface DishRepository extends JpaRepository<Dish, Long> {
+    /**
+     * @param maxPrice : max price for a dish
+     * @return dishs from h2 database with a price lower than maxPrice
+     */
+    @Query("select d from Dish d where d.price < :maxPrice")
     List<Dish> getDishsWithMaxPriceFilter(@Param("maxPrice") Double maxPrice);
-    @Query("select d from Dish d where d.title = :title")
-    Dish existsTitle(@Param("title") String title);
+
+    /**
+     * @param selectedCategory : category selected for a dish
+     * @return dishs who contain selectedCategory in their set
+     */
+    @Query(value = "SELECT * FROM Dish WHERE ARRAY_CONTAINS(categories, :selectedCategory)", nativeQuery = true)
+    List<Dish> getDishsWithSelectedCategory(@Param("selectedCategory") String selectedCategory);
 }

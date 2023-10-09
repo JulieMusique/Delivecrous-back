@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 public class Dish {
     @Id
-    @GeneratedValue //Primary Key
+    @GeneratedValue
     private long idDish;
     private String title;
     private String description;
@@ -31,8 +31,8 @@ public class Dish {
         return idDish;
     }
 
-    public void setIdDish(long id) {
-        this.idDish = id;
+    public void setIdDish(long idDish) {
+        this.idDish = idDish;
     }
 
     public String getTitle() {
@@ -59,12 +59,12 @@ public class Dish {
         this.price = price;
     }
 
-    public String getImage() {
+    public String getImagePath() {
         return imagePath;
     }
 
-    public void setImage(String image) {
-        this.imagePath = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Set<String> getCategories() {
@@ -90,12 +90,5 @@ public class Dish {
     public void setAllergenList(Set<String> allergenList) {
         this.allergenList = allergenList;
     }
-    
-	@Override
-	public String toString() {
-		return "Dish [idDish=" + idDish + ", title=" + title + ", description=" + description + ", categories="
-				+ categories + ", price=" + price + ", image=" + imagePath + ", ingredientList=" + ingredientList
-				+ ", allergenList=" + allergenList + "]";
-	}
 
 }
