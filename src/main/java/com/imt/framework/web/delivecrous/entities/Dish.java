@@ -10,17 +10,15 @@ import java.util.Set;
 @Entity
 public class Dish {
     @Id
-    @GeneratedValue //Primary Key
-    private long id;
+    @GeneratedValue
+    private long idDish;
     private String title;
     private String description;
-    //TODO : Changer ca après
     private Set<String> categories;
-    private int price;
-    private String image;
+    private double price;
+    private String imagePath;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //jointure -> renseigner
-    ///FetchType.EAGER charge par défaut
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
     private Set<String> allergenList;
 
@@ -29,12 +27,12 @@ public class Dish {
         allergenList = new HashSet<>();
         categories = new HashSet<>();
     }
-    public long getId() {
-        return id;
+    public long getIdDish() {
+        return idDish;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdDish(long idDish) {
+        this.idDish = idDish;
     }
 
     public String getTitle() {
@@ -53,20 +51,20 @@ public class Dish {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Set<String> getCategories() {

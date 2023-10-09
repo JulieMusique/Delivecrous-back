@@ -1,9 +1,5 @@
 package com.imt.framework.web.delivecrous.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
 import java.util.*;
 
 public enum Allergen {

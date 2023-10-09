@@ -3,13 +3,33 @@ package com.imt.framework.web.delivecrous.entities;
 import java.util.*;
 
 public enum Category {
-    VEGETARIAN,
-    MEAT,
-    FISH,
-    HEALTHY,
-    FAT;
+    VEGETARIAN("VEGETARIAN"),
+    MEAT("MEAT"),
+    FISH("FISH"),
+    HEALTHY("HEALTHY"),
+    FAT("FAT");
+	
+	private String name;
+	
+	Category(String name){
+		this.name = name;
+	}
 
-    public static boolean contain(String value){
+    /**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static boolean contain(String value){
         for(int i=0; i<Category.values().length; i++){
             if(Objects.equals(value, Category.values()[i].name()))
                 return true;
@@ -17,6 +37,9 @@ public enum Category {
         return false;
     }
 
+    /**
+     * Test if value in categories set is contained in Enum Category.
+     */
     public static void testCategories(Set<String> categories) throws Exception {
         for (String category : categories) {
             if (!Category.contain(category))
@@ -24,10 +47,12 @@ public enum Category {
         }
     }
 
+    /**
+     * Init category set by getting categories from Ingredients
+     */
     public static void initDishCategories(Dish dish) {
         Set<String> categories = new HashSet<>();
         for(int i=0; i<dish.getIngredientList().size(); i++){
-            //categories = dish.getCategories();
             categories.addAll(dish.getIngredientList().get(i).getCategories());
         }
         if(categories.contains("VEGETARIAN")){
