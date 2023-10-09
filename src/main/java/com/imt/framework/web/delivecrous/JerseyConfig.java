@@ -1,10 +1,15 @@
 package com.imt.framework.web.delivecrous;
 
+
+import com.imt.framework.web.delivecrous.entities.User;
+import com.imt.framework.web.delivecrous.ressources.UserResource;
+
 import com.imt.framework.web.delivecrous.cors.CorsFilter;
 import com.imt.framework.web.delivecrous.ressources.CommandResource;
 import com.imt.framework.web.delivecrous.ressources.DishResource;
 import com.imt.framework.web.delivecrous.ressources.FavorisResource;
 import com.imt.framework.web.delivecrous.ressources.UserResource;
+
 
 import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
