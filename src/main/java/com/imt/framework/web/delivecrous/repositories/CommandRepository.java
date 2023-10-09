@@ -22,12 +22,12 @@ import com.imt.framework.web.delivecrous.entities.Command;
 public interface CommandRepository extends JpaRepository<Command, Long>{
 	@Query("select c from Command c where c.idUser = :idUser")
     List<Command> findCommandsByidUser(@Param("idUser") Long idUser);
-	@Query("select c from Command c where c.dueDate < :currentDate")
-	List<Command> findHistoryCommands(@Param("currentDate") Date currentDate);
-	@Query("select c from Command c where c.dueDate = :currentDate")
-	List<Command> findDeliveredCommands(@Param("currentDate") Date currentDate);
-	@Query("select c from Command c where c.orderDate is null")
-	List<Command> findCommandsNotOrdered();
+	@Query("select c from Command c where c.idUser = :idUser and c.dueDate < :currentDate")
+	List<Command> findHistoryCommands(@Param("idUser") Long idUser, @Param("currentDate") Date currentDate);
+	@Query("select c from Command c where c.idUser = :idUser and c.dueDate = :currentDate")
+	List<Command> findDeliveredCommands(@Param("idUser") Long idUser, @Param("currentDate") Date currentDate);
+	@Query("select c from Command c where c.idUser = :idUser and c.orderDate is null")
+	List<Command> findCommandsNotOrdered(@Param("idUser") Long idUser);
 	/*@Query("select c from Command c where c.idCommand = :idCommand")
 	Command findById(@Param("idUser") Long idCommand);*/
 }

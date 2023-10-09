@@ -147,23 +147,23 @@ public class CommandResource {
 	
 	@GET
 	@Produces(value = "application/json")
-	@Path("/history")
-	public List<Command> getHistory() {
-		return commandRepository.findHistoryCommands(Date.valueOf(LocalDate.now()));
+	@Path("/history/{idUser}")
+	public List<Command> getHistory(Long idUser) {
+		return commandRepository.findHistoryCommands(idUser, Date.valueOf(LocalDate.now()));
 	}
 	
 	@GET
 	@Produces(value = "application/json")
-	@Path("/notOrdered")
-	public List<Command> getCommandsNotOrdered() {
-		return commandRepository.findCommandsNotOrdered();
+	@Path("/notOrdered/{idUser}")
+	public List<Command> getCommandsNotOrdered(Long idUser) {
+		return commandRepository.findCommandsNotOrdered(idUser);
 	}
 	
 	@GET
 	@Produces(value = "application/json")
-	@Path("/delivered")
-	public List<Command> getCommandsDelivered() {
-		return commandRepository.findDeliveredCommands(Date.valueOf(LocalDate.now()));
+	@Path("/delivered/{idUser}")
+	public List<Command> getCommandsDelivered(Long idUser) {
+		return commandRepository.findDeliveredCommands(idUser, Date.valueOf(LocalDate.now()));
 	}
 	
 	@DELETE
