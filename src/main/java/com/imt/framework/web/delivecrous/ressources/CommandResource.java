@@ -34,6 +34,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
 
 /**
  * @author julie.catteau@etu.imt-nord-europe.fr
@@ -63,16 +64,17 @@ public class CommandResource {
 	
 	@POST
 	@Consumes(value= "application/json")
-	public String createCommand(@NotNull @RequestBody CreateCommandDto command) throws Exception {
+	public Command createCommand(@NotNull @RequestBody CreateCommandDto command) throws Exception {
 		
 		double totalAmount = 0;
 		Command newCommand = new Command();
-		User user = (User) userRepository.getUserWithIdFilter(command.getIdUser());
-		
-		if( user != null) {
-			newCommand.setIdUser(user);
+		List<User> users = userRepository.getUserWithIdFilter(command.getIdUser());
+		System.out.println(users);
+		if(users.size() != 0) {
+			newCommand.setIdUser(users.get(0));
+		}else{
+			return null;
 		}
-		newCommand.setIdUser(user);
 	    newCommand.setOrderDate(command.getOrderDate());
         newCommand.setDeliveryAdress(command.getDeliveryAdress());
         newCommand.setDueDate(command.getDueDate());
@@ -102,8 +104,7 @@ public class CommandResource {
             composeRepository.save(composeEntry);
         }
 		newCommand.setTotalAmount(totalAmount);
-		commandRepository.save(newCommand);
-		return "La commande a bien été créée";
+		return commandRepository.save(newCommand);
 	}
 	
 	@PUT
@@ -123,11 +124,17 @@ public class CommandResource {
 		}
 	}
 	
-	@PUT
+	/*@PUT
 	@Path("/{idCommand}/add/{idDish}")
-	public void addDishToCommand(@NotNull @PathParam("idCommand") Long idCommand, @PathParam("idDish") Long idDish) {
+	public Command addDishToCommand(@NotNull @PathParam("idCommand") Long idCommand, @PathParam("idDish") Long idDish) {
 		Command command = commandRepository.findById(idCommand).get();
+		if(command == null) {
+			return null;
+		}
 		Dish dish = dishRepository.findById(idDish).get();
+		if(dish == null) {
+			return null;
+		}
 		QuantityDishKey key = new QuantityDishKey(command.getIdCommand(), dish.getIdDish());
 		Compose compose = composeRepository.findByKey(idCommand, idDish);
 		if( compose != null) {
@@ -139,35 +146,93 @@ public class CommandResource {
 			compose.setCommand(command);
 			compose.setQuantity(1);
 		}
-		commandRepository.save(command);
 		composeRepository.save(compose);
+		return commandRepository.save(command);
+		
+	}*/
+	
+	@PUT
+	@Path("/{idCommand}/add/{idDish}")
+	public Response addDishToCommand(
+	    @NotNull @PathParam("idCommand") Long idCommand,
+	    @PathParam("idDish") Long idDish) {
+
+	    try {
+	        // Retrieve the Command object
+	        Command command = commandRepository.findById(idCommand).orElse(null);
+
+	        // Check if the Command object was found
+	        if (command == null) {
+	            return Response.status(Response.Status.NOT_FOUND)
+	                .entity("Command not found")
+	                .build();
+	        }
+
+	        // Retrieve the Dish object
+	        Dish dish = dishRepository.findById(idDish).orElse(null);
+
+	        // Check if the Dish object was found
+	        if (dish == null) {
+	            return Response.status(Response.Status.NOT_FOUND)
+	                .entity("Dish not found")
+	                .build();
+	        }
+
+	        // Rest of your code for composition and saving entities...
+	        QuantityDishKey key = new QuantityDishKey(command.getIdCommand(), dish.getIdDish());
+	        System.out.println(key);
+			Compose compose = composeRepository.findByKey(idCommand, idDish);
+			System.out.println(compose);
+			if( compose != null) {
+				compose.setQuantity(compose.getQuantity() + 1);
+			}else {
+				compose = new Compose();
+				compose.setId(key);
+				compose.setDish(dish);
+				compose.setCommand(command);
+				compose.setQuantity(1);
+			}
+			composeRepository.save(compose);
+			commandRepository.save(command);
+	        // Return a success response with the updated Command
+	        return Response.ok(command).build();
+	    } catch (Exception e) {
+	        // Handle other exceptions (e.g., database errors)
+	        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+	            .entity("An error occurred")
+	            .build();
+	    }
+	}
+
+	
+	@GET
+	@Produces(value = "application/json")
+	@Path("/history/{idUser}")
+	public List<Command> getHistory( @PathParam("idUser") Long idUser) {
+		return commandRepository.findHistoryCommands(idUser, Date.valueOf(LocalDate.now()));
 	}
 	
 	@GET
 	@Produces(value = "application/json")
-	@Path("/history")
-	public List<Command> getHistory() {
-		return commandRepository.findHistoryCommands(Date.valueOf(LocalDate.now()));
+	@Path("/notOrdered/{idUser}")
+	public List<Command> getCommandsNotOrdered( @PathParam("idUser") Long idUser) {
+		return commandRepository.findCommandsNotOrdered(idUser);
 	}
 	
 	@GET
 	@Produces(value = "application/json")
-	@Path("/notOrdered")
-	public List<Command> getCommandsNotOrdered() {
-		return commandRepository.findCommandsNotOrdered();
-	}
-	
-	@GET
-	@Produces(value = "application/json")
-	@Path("/delivered")
-	public List<Command> getCommandsDelivered() {
-		return commandRepository.findDeliveredCommands(Date.valueOf(LocalDate.now()));
+	@Path("/delivered/{idUser}")
+	public List<Command> getCommandsDelivered( @PathParam("idUser") Long idUser) {
+		return commandRepository.findDeliveredCommands(idUser, Date.valueOf(LocalDate.now()));
 	}
 	
 	@DELETE
 	@Path("/{idCommand}/remove/{idDish}")
-	public void removeDishFromCommand(@NotNull @PathParam("idCommand") Long idCommand, @PathParam("idDish") Long idDish) {
+	public Command removeDishFromCommand(@NotNull @PathParam("idCommand") Long idCommand, @PathParam("idDish") Long idDish) {
 		Command command = commandRepository.findById(idCommand).get();
+		if(command == null) {
+			return null;
+		}
 		Compose compose = composeRepository.findByKey(idCommand, idDish);
 		if( compose != null) {
 			if(compose.getQuantity() == 1) {
@@ -177,18 +242,22 @@ public class CommandResource {
 				composeRepository.save(compose);
 			}
 		}
-		commandRepository.save(command);
+		return commandRepository.save(command);
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	public void deleteCommand(@NotNull @PathParam("id") Long id) {
+	public Command deleteCommand(@NotNull @PathParam("id") Long id) {
 		System.out.println(id);
 		//supprimer dans compose
 		Command command = commandRepository.findById(id).get();
+		if(command == null) {
+			return null;
+		}
 		for(Compose dish : command.getComposeItems()) {
 			composeRepository.deleteById(dish.getId());
 		}
 		commandRepository.deleteById(id);
+		return command;
 	}
 }

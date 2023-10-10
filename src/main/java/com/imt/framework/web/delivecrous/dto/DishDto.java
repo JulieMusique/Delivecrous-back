@@ -15,7 +15,7 @@ public class DishDto {
     private String description;
     private Set<String> categories;
     private Double price;
-    private String image;
+    private String imagePath;
     private List<IngredientDto> ingredientList;
     private Set<String> allergenList;
 	/**
@@ -69,14 +69,14 @@ public class DishDto {
 	/**
 	 * @return the image
 	 */
-	public String getImage() {
-		return image;
+	public String getImagePath() {
+		return imagePath;
 	}
 	/**
 	 * @param image the image to set
 	 */
-	public void setImage(String image) {
-		this.image = image;
+	public void setImagePath(String image) {
+		this.imagePath = image;
 	}
 	/**
 	 * @return the ingredientList
@@ -105,7 +105,7 @@ public class DishDto {
 	@Override
 	public String toString() {
 		return "DishDto [title=" + title + ", description=" + description + ", categories=" + categories + ", price="
-				+ price + ", image=" + image + ", ingredientList=" + ingredientList + ", allergenList=" + allergenList
+				+ price + ", image=" + imagePath + ", ingredientList=" + ingredientList + ", allergenList=" + allergenList
 				+ "]";
 	}
 }
