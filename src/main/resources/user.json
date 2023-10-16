@@ -1,0 +1,22 @@
+[
+    {
+        "lastName": "karine",
+        "firstName": "gand",
+        "email": "test@yahoo.com",
+        "phone": "0623766789",
+        "adresse": "35  grande place",
+        "login": "karine2",
+        "password": "Kaki123456",
+        "soldeCarteCrous": 45.00
+    },
+    {
+        "lastName": "Potter",
+        "firstName": "Harry",
+        "email": "harry.potter@gmail.com",
+        "phone": "0620152423",
+        "adresse": "",
+        "login": "harryP",
+        "password": "Admin1234",
+        "soldeCarteCrous": 20.0
+    }
+]
