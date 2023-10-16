@@ -2,10 +2,7 @@ package com.imt.framework.web.delivecrous.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Ingredient {
@@ -61,6 +58,25 @@ public class Ingredient {
 
     public void setAllergenList(Set<String> allergenList) {
         this.allergenList = allergenList;
+    }
+
+    /**
+     * Override equals beacause, need to compare all params in ingredient without id who is unique
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Ingredient ingredient = (Ingredient) o;
+        if(this.name.equals(ingredient.name))
+            return false;
+        if(this.calorie != ingredient.calorie)
+            return false;
+        if(!this.categories.containsAll(ingredient.categories))
+            return false;
+        if(!this.allergenList.containsAll(ingredient.allergenList))
+            return false;
+        return true;
     }
 
 }

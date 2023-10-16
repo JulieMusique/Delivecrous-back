@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.imt.framework.web.delivecrous.entities.Dish;
 import com.imt.framework.web.delivecrous.entities.User;
 import com.imt.framework.web.delivecrous.repositories.DishRepository;
@@ -24,12 +25,12 @@ public class DelivecrousApplication {
         }
 
         @Bean
-        CommandLineRunner runner(UserRepository userRepository) {
+        CommandLineRunner runner(UserRepository userRepository, DishRepository dishRepository) {
                 return args -> {
                         ObjectMapper mapper = new ObjectMapper();
                         TypeReference<List<User>> typeReference = new TypeReference<List<User>>() {
                         };
-                        InputStream inputStream = DelivecrousApplication.class.getResourceAsStream("/user.json");
+                        InputStream inputStream = DelivecrousApplication.class.getResourceAsStream("/json/user.json");
                         try {
                                 List<User> users = mapper.readValue(inputStream, typeReference);
                                 for (User user : users) {
@@ -54,7 +55,31 @@ public class DelivecrousApplication {
                         } catch (IOException e) {
                                 System.out.println("Unable to save users: " + e.getMessage());
                         }
+
+                        ObjectMapper mapperDish = new ObjectMapper();
+                        TypeReference<List<Dish>> typeReferenceDish = new TypeReference<List<Dish>>(){};
+                        InputStream inputStreamDish = getClass().getResourceAsStream("/json/dish.json");
+                        try{
+                                List<Dish> dishes = mapperDish.readValue(inputStreamDish, typeReferenceDish);
+                                for (Dish dish : dishes) {
+                                        boolean alreadyIn = false;
+                                        List<Dish> dishesalreadyIn = dishRepository.findAll();
+                                        for(Dish dishalreadyIn : dishesalreadyIn){
+                                                if(dishalreadyIn.equals(dish)){
+                                                        alreadyIn = true;
+                                                        break;
+                                                }
+                                        }
+                                        if(!alreadyIn){
+                                                dish = dish.initDish(dish);
+                                                dishRepository.save(dish);
+                                                System.out.println("Dishes : " + dish.getTitle() + " added successfully");
+                                        } else
+                                                System.out.println("Dishes : " + dish.getTitle() + " already existing");
+                                }
+                        } catch (IOException e){
+                                System.out.println("Unable to save dishes: " + e.getMessage());
+                        }
                 };
         }
-
 }
