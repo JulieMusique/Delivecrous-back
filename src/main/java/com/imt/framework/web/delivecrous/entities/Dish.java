@@ -2,10 +2,7 @@ package com.imt.framework.web.delivecrous.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Dish {
@@ -91,4 +88,35 @@ public class Dish {
         this.allergenList = allergenList;
     }
 
+    public Dish initDish(Dish dish) throws Exception {
+        for(int i=0; i<dish.getIngredientList().size(); i++){
+            Category.testCategories(dish.getIngredientList().get(i).getCategories());
+            Allergen.testAllergens(dish.getIngredientList().get(i).getAllergenList());
+        }
+        Category.initDishCategories(dish);
+        Allergen.initDishAllergens(dish);
+        return dish;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Dish dish = (Dish) o;
+        if(!this.title.equals(dish.title))
+            return false;
+        if(!this.description.equals(dish.description))
+            return false;
+        if(this.price != dish.price)
+            return false;
+        if(!this.imagePath.equals(dish.imagePath))
+            return false;
+        if(!this.categories.containsAll(dish.categories))
+            return false;
+        if(!this.allergenList.containsAll(dish.allergenList))
+            return false;
+        if(this.ingredientList.equals(dish.ingredientList))
+            return false;
+        return true;
+    }
 }
