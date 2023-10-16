@@ -27,6 +27,7 @@ public class DelivecrousApplication {
         @Bean
         CommandLineRunner runner(UserRepository userRepository, DishRepository dishRepository) {
                 return args -> {
+                        //USER
                         ObjectMapper mapper = new ObjectMapper();
                         TypeReference<List<User>> typeReference = new TypeReference<List<User>>() {
                         };
@@ -56,6 +57,7 @@ public class DelivecrousApplication {
                                 System.out.println("Unable to save users: " + e.getMessage());
                         }
 
+                        //DISH
                         ObjectMapper mapperDish = new ObjectMapper();
                         TypeReference<List<Dish>> typeReferenceDish = new TypeReference<List<Dish>>(){};
                         InputStream inputStreamDish = getClass().getResourceAsStream("/json/dish.json");
