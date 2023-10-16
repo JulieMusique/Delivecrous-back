@@ -23,4 +23,11 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
      */
     @Query(value = "SELECT * FROM Dish WHERE ARRAY_CONTAINS(categories, :selectedCategory)", nativeQuery = true)
     List<Dish> getDishsWithSelectedCategory(@Param("selectedCategory") String selectedCategory);
+
+    /**
+     * @param searchedTitle : category selected for a dish
+     * @return dishs who contain selectedCategory in their set
+     */
+    @Query(value = "SELECT * FROM Dish WHERE title LIKE :searchedTitle%", nativeQuery = true)
+    List<Dish> getDishsWithSearchedTitle(@Param("searchedTitle") String searchedTitle);
 }

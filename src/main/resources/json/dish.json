@@ -1,0 +1,193 @@
+[
+	{
+	    "title": "Pate aux Saumons",
+	    "description": "Plat constitue de pates, saumon et creme",
+	    "price": 17,
+	    "imagePath": "https://img.cuisineaz.com/660x660/2022/08/01/i184958-pates-au-saumon.jpeg",
+	    "ingredientList": [
+		{
+		    "name": "Pate",
+		    "calorie": 100,
+		    "categories": [],
+		    "allergenList": ["WHEAT"]
+		},
+		{
+		    "name": "Saumon",
+		    "calorie": 200,
+		    "categories": ["FISH", "HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Creme",
+		    "calorie": 50,
+		    "categories": ["FAT"],
+		    "allergenList": []
+		}
+	    ]
+	},
+
+
+	{
+	    "title": "Burger",
+	    "description": "Plat constitue de pain et steaks",
+	    "price": 15,
+	    "imagePath": "https://www.thecookierookie.com/wp-content/uploads/2023/04/featured-stovetop-burgers-recipe.jpg",
+	    "ingredientList": [
+		{
+		    "name": "Pain",
+		    "calorie": 100,
+		    "categories": ["FAT"],
+		    "allergenList": ["WHEAT", "SESAME"]
+		},
+		{
+		    "name": "STEAK",
+		    "calorie": 200,
+		    "categories": ["MEAT"],
+		    "allergenList": []
+		}
+	    ]
+	},
+
+	{
+	    "title": "Pizza margherita",
+	    "description": "Pizza base rouge (tomate)",
+	    "price": 12,
+	    "imagePath": "https://img.cuisineaz.com/660x660/2013/12/20/i18445-margherite.jpeg",
+	    "ingredientList": [
+		{
+		    "name": "Tomate",
+		    "calorie": 30,
+		    "categories": ["HEALTHY", "VEGETARIAN"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Fromage",
+		    "calorie": 200,
+		    "categories": ["FAT"],
+		    "allergenList": []
+		}, 
+		{
+		    "name": "Pate",
+		    "calorie": 100,
+		    "categories": ["FAT"],
+		    "allergenList": ["WHEAT"]
+		}
+	    ]
+	},
+
+	{
+	    "title": "Salade Cesar",
+	    "description": "Une delicieuse salade Cesar avec des croutons, du poulet grille et une vinaigrette cremeuse.",
+	    "price": 12,
+	    "imagePath": "https://assets.afcdn.com/recipe/20190704/94709_origin.jpg",
+	    "ingredientList": [
+		{
+		    "name": "Laitue",
+		    "calorie": 20,
+		    "categories": ["VEGETARIAN", "HEALTHY"],
+		    "allergenList": ["MILK"]
+		},
+		{
+		    "name": "Poulet grillé",
+		    "calorie": 150,
+		    "categories": ["MEAT", "HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Croutons",
+		    "calorie": 50,
+		    "categories": ["FAT"],
+		    "allergenList": ["WHEAT"]
+		},
+		{
+		    "name": "Vinaigrette",
+		    "calorie": 80,
+		    "categories": ["FAT"],
+		    "allergenList": ["MILK"]
+		}
+	    ]
+	},
+
+	{
+	    "title": "Filet de Saumon Grille",
+	    "description": "Un filet de saumon grille avec des legumes frais et une sauce au citron.",
+	    "price": 18,
+	    "imagePath": "https://media.soscuisine.com/images/recettes/large/944.jpg",
+	    "ingredientList": [
+		{
+		    "name": "Filet de Saumon",
+		    "calorie": 200,
+		    "categories": ["FISH", "HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Legumes frais",
+		    "calorie": 50,
+		    "categories": ["VEGETARIAN", "HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Sauce au Citron",
+		    "calorie": 70,
+		    "categories": ["HEALTHY"],
+		    "allergenList": []
+		}
+	    ]
+	},
+
+	{
+	    "title": "Steak de Boeuf",
+	    "description": "Un steak de boeuf grille servi avec des frites croustillantes et une sauce au poivre.",
+	    "price": 20,
+	    "imagePath": "https://img.cuisineaz.com/1200x675/2022/08/15/i185243-steak-de-boeuf-saignant.jpg",
+	    "ingredientList": [
+		{
+		    "name": "Steak de Boeuf",
+		    "calorie": 250,
+		    "categories": ["MEAT"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Frites",
+		    "calorie": 300,
+		    "categories": ["FAT"],
+		    "allergenList": ["WHEAT"]
+		},
+		{
+		    "name": "Sauce au Poivre",
+		    "calorie": 60,
+		    "categories": ["HEALTHY"],
+		    "allergenList": []
+		}
+	    ]
+	},
+
+	{
+	    "title": "Salade de Quinoa au Avocat",
+	    "description": "Une salade de quinoa saine avec des avocats crémeux et une vinaigrette legere.",
+	    "price": 15,
+	    "imagePath": "https://d33wubrfki0l68.cloudfront.net/03508c93cfe2738ea89515956342ea13c75e62e4/4ff49/fr/recipes/quinoa-tuna-salad/featured_3_hub6e3f8dc209b40c9147f217b474e1546_168570_800x534_fill_q75_box_bottomleft.jpg",
+	    "ingredientList": [
+		{
+		    "name": "Quinoa",
+		    "calorie": 150,
+		    "categories": ["HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Avocat",
+		    "calorie": 160,
+		    "categories": ["VEGETARIAN","HEALTHY"],
+		    "allergenList": []
+		},
+		{
+		    "name": "Vinaigrette legere",
+		    "calorie": 40,
+		    "categories": ["HEALTHY"],
+		    "allergenList": []
+		}
+	    ]
+	}
+]
+
+
