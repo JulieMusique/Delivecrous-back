@@ -7,6 +7,7 @@ import com.imt.framework.web.delivecrous.repositories.DishRepository;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +23,14 @@ public class DishResource {
     @GET
     @Produces(value="application/json")
     public List<Dish> getDishs(@QueryParam("maxPrice") Double maxPrice,
-                               @QueryParam("selectedCategory") String selectedCategory) {
+                               @QueryParam("selectedCategory") String selectedCategory,
+                               @QueryParam("searchedTitle") String searchedTitle) {
         if(maxPrice != null)
             return dishRepository.getDishsWithMaxPriceFilter(maxPrice);
-        if(selectedCategory != null){
+        if(selectedCategory != null)
             return dishRepository.getDishsWithSelectedCategory(selectedCategory);
-        }
+        if(searchedTitle != null)
+            return dishRepository.getDishsWithSearchedTitle(searchedTitle);
         return dishRepository.findAll();
     }
 
@@ -55,7 +58,7 @@ public class DishResource {
             dishToUpdate.setPrice(dish.getPrice());
             dishToUpdate.setImagePath(dish.getImagePath());
             dishToUpdate.setIngredientList(dish.getIngredientList());
-            //need to be after ingredients update
+            //need to be after ingredients update to init from ingrendient category set, dish category set
             Category.initDishCategories(dishToUpdate);
             Allergen.initDishAllergens(dishToUpdate);
             dishRepository.save(dishToUpdate);
@@ -71,13 +74,13 @@ public class DishResource {
 }
 
 /*
+DROP TABLE COMPOSE;
+DROP TABLE COMMAND;
+DROP TABLE FAVORIS;
+DROP TABLE USERS;
 DROP TABLE DISH_INGREDIENT_LIST;
 DROP TABLE INGREDIENT;
-DROP TABLE COMPOSE
-DROP TABLE FAVORIS
-DROP TABLE USERS
 DROP TABLE DISH;
-
 
 http://localhost:8080/DelivCROUS/dishs
 http://localhost:8080/h2
