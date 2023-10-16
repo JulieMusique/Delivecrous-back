@@ -3,7 +3,6 @@ package com.imt.framework.web.delivecrous.entities;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import java.security.MessageDigest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -110,6 +109,26 @@ public class User {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        User user = (User) o;
+
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null)
+            return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
+            return false;
+        if (email != null ? !email.equals(user.email) : user.email != null)
+            return false;
+        if (phone != null ? !phone.equals(user.phone) : user.phone != null)
+            return false;
+        return adresse.equals(user.adresse);
     }
 
 }

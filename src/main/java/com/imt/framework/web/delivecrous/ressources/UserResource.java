@@ -117,6 +117,29 @@ public class UserResource {
 
 	}
 
+	@PUT
+	@Consumes({ "application/json" })
+	@Path("/updatePassword/{id}/{newPassword}")
+	public void updatePassword(@PathParam("id") @NotNull Long id,@PathParam("newPassword") @NotNull String newPassword) throws Exception {
+		Optional<User> searchedUser = this.userRepository.findById(id);
+		if (!searchedUser.isEmpty()) {
+			User userToUpdate = searchedUser.get();
+			userToUpdate.setPassword(newPassword); 
+			this.userRepository.save(userToUpdate);
+		}
+	}
+
+	@PUT
+	@Consumes({ "application/json" })
+	@Path("/forgotPassword/{email}/{newPassword}")
+	public void forgotPassword(@PathParam("email") @NotNull String email,@PathParam("newPassword") @NotNull String newPassword) throws Exception {
+		User searchedUser = this.userRepository.findByEmail(email);
+		if (searchedUser != null) {
+			searchedUser.setPassword(newPassword); 
+			this.userRepository.save(searchedUser);
+		}
+	}
+
 	@DELETE
 	@Path("/{id}")
 	public void deleteUser(@PathParam("id") @NotNull Long id) {
