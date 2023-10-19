@@ -14,7 +14,7 @@
         "firstName": "Harry",
         "email": "harry.potter@gmail.com",
         "phone": "0620152423",
-        "adresse": "12 rue de la Chine",
+        "adresse": "",
         "login": "harryP",
         "password": "Admin1234",
         "soldeCarteCrous": 100.0
