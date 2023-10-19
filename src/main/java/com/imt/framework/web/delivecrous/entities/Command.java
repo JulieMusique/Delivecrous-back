@@ -4,7 +4,9 @@
 package com.imt.framework.web.delivecrous.entities;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,8 +36,6 @@ public class Command {
 	//@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate; // Date de la commande
 	private String deliveryAdress; // Adresse de livraison
-	private Date dueDate; // Date et heure attendues
-	private String orderStatus; // Statut de la commande)
 	private Integer duration; // Durée restante (minutes)
 	private Double totalAmount; // Montant total de la commande
 	
@@ -44,6 +44,9 @@ public class Command {
 	private List<Compose> composeItems;
 	
 	public Command() {
+		this.duration = null;
+		this.orderDate = null;
+		this.totalAmount = 0.0;
 	}
 	
 	/**
@@ -69,30 +72,6 @@ public class Command {
 	 */
 	public void setDeliveryAdress(String deliveryAdress) {
 		this.deliveryAdress = deliveryAdress;
-	}
-	/**
-	 * @return the dueDate
-	 */
-	public Date getDueDate() {
-		return dueDate;
-	}
-	/**
-	 * @param dueDate the dueDate to set
-	 */
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
-	/**
-	 * @return the orderStatus
-	 */
-	public String getOrderStatus() {
-		return orderStatus;
-	}
-	/**
-	 * @param orderStatus the orderStatus to set
-	 */
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
 	}
 
 	/**
@@ -165,8 +144,7 @@ public class Command {
 	@Override
 	public String toString() {
 		return "Command [idCommand=" + idCommand + ", idUser=" + idUser + ", orderDate=" + orderDate
-				+ ", deliveryAdress=" + deliveryAdress + ", dueDate=" + dueDate + ", orderStatus=" + orderStatus
-				+ ", duration=" + duration + ", totalAmount=" + totalAmount + "]";
+				+ ", deliveryAdress=" + deliveryAdress + ", duration=" + duration + ", totalAmount=" + totalAmount + "]";
 	}
 	
 }

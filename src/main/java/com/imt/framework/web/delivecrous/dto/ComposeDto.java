@@ -9,7 +9,6 @@ import com.imt.framework.web.delivecrous.entities.Dish;
 public class ComposeDto {
 	private Dish dish;
 	private Integer quantity;
-	private Double totalAmount;
 	/**
 	 * @return the dish
 	 */
@@ -34,20 +33,8 @@ public class ComposeDto {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	/**
-	 * @return the totalAmount
-	 */
-	public Double getTotalAmount() {
-		return totalAmount;
-	}
-	/**
-	 * @param totalAmount the totalAmount to set
-	 */
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
-	}
 	@Override
 	public String toString() {
-		return "ComposeDto [dish=" + dish + ", quantity=" + quantity + ", totalAmount=" + totalAmount + "]";
+		return "ComposeDto [dish=" + dish + ", quantity=" + quantity + "]";
 	}
 }
