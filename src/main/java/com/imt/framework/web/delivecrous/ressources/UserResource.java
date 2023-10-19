@@ -120,11 +120,26 @@ public class UserResource {
 	@PUT
 	@Consumes({ "application/json" })
 	@Path("/updatePassword/{id}/{newPassword}")
-	public void updatePassword(@PathParam("id") @NotNull Long id,@PathParam("newPassword") @NotNull String newPassword) throws Exception {
+	public void updatePassword(@PathParam("id") @NotNull Long id, @PathParam("newPassword") @NotNull String newPassword)
+			throws Exception {
 		Optional<User> searchedUser = this.userRepository.findById(id);
 		if (!searchedUser.isEmpty()) {
 			User userToUpdate = searchedUser.get();
-			userToUpdate.setPassword(newPassword); 
+			userToUpdate.setPassword(newPassword);
+			this.userRepository.save(userToUpdate);
+		}
+	}
+
+	@PUT
+	@Consumes({ "application/json" })
+	@Path("/payment/{id}/{amount}")
+	public void updateBalance(@PathParam("id") @NotNull Long id, @PathParam("amount") Double amount) throws Exception {
+		Optional<User> searchedUser = this.userRepository.findById(id);
+		if (!searchedUser.isEmpty()) {
+			User userToUpdate = searchedUser.get();
+			double currentBalance = userToUpdate.getSoldeCarteCrous();
+			double newBalance = currentBalance - amount;
+			userToUpdate.setSoldeCarteCrous(newBalance);
 			this.userRepository.save(userToUpdate);
 		}
 	}
@@ -132,10 +147,11 @@ public class UserResource {
 	@PUT
 	@Consumes({ "application/json" })
 	@Path("/forgotPassword/{email}/{newPassword}")
-	public void forgotPassword(@PathParam("email") @NotNull String email,@PathParam("newPassword") @NotNull String newPassword) throws Exception {
+	public void forgotPassword(@PathParam("email") @NotNull String email,
+			@PathParam("newPassword") @NotNull String newPassword) throws Exception {
 		User searchedUser = this.userRepository.findByEmail(email);
 		if (searchedUser != null) {
-			searchedUser.setPassword(newPassword); 
+			searchedUser.setPassword(newPassword);
 			this.userRepository.save(searchedUser);
 		}
 	}
