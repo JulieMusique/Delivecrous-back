@@ -11,9 +11,6 @@ Ce dépôt contient le code source de la partie backend de l'application de comm
 ## Architecture du Projet
 Structure du projet Spring Boot et l'organisation des packages.
 
-## Modèles de Données
-Description des entités de votre base de données, comme les plats et les utilisateurs, et leurs relations.
-
 ## Fonctionnalités des Web Services
 - Web services REST pour la gestion des plats, utilisateurs et commandes
 - Endpoints pour lister les plats, ajouter au panier, passer une commande, etc.
