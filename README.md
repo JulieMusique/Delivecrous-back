@@ -8,6 +8,9 @@ Ce dépôt contient le code source de la partie backend de l'application de comm
 - Base de données : H2 (embarquée)
 - Langage : Java
 
+## Structure du projet
+![Capture d'écran](architectureApp.PNG)
+
 ## Architecture du Projet
 Structure du projet Spring Boot et l'organisation des packages.
 
@@ -21,5 +24,5 @@ Description des entités de votre base de données, comme les plats et les utili
 ## Instructions pour Exécuter le Projet
 1. Clonez ce dépôt : `git clone [lien du dépôt]`
 2. Ouvrez le projet dans votre IDE Java préféré
-3. Exécutez l'application : cherchez la classe principale et lancez-la en tant qu'application Java
+3. Exécutez l'application : Réalisez mvn clean install puis cherchez la classe principale "DelivecrousApp.java" dans le dossier "src\main\java\com\imt\framework\web\delivecrous\DelivecrousApplication.java" et lancez-la en tant qu'application Java
 4. Le serveur démarrera à l'adresse : `http://localhost:[port]`
