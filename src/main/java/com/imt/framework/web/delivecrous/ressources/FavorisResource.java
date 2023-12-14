@@ -16,12 +16,25 @@ import java.util.List;
 public class FavorisResource {
 	@Autowired
 	private FavorisRepository favorisRepository;
+	
+	public void setFavorisRepository(FavorisRepository favorisRepository) {
+    	this.favorisRepository = favorisRepository;
+    }
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	public void setUserRepository(UserRepository userRepository) {
+    	this.userRepository = userRepository;
+    }
 
 	@Autowired
 	private DishRepository dishRepository;
+	
+	public void setDishRepository(DishRepository dishRepository) {
+    	this.dishRepository = dishRepository;
+    }
+	
 	@GET
 	@Path("/{userId}")
 	@Produces("application/json")

@@ -19,6 +19,14 @@ import java.util.Optional;
 public class DishResource {
     @Autowired
     private DishRepository dishRepository;
+    
+    public void setDishRepository(DishRepository dishRepository) {
+    	this.dishRepository = dishRepository;
+    }
+    
+    public DishRepository getDishRepository() {
+    	return dishRepository;
+    }
 
     @GET
     @Produces(value="application/json")

@@ -2,6 +2,7 @@
 package com.imt.framework.web.delivecrous.ressources;
 
 import com.imt.framework.web.delivecrous.entities.User;
+import com.imt.framework.web.delivecrous.repositories.DishRepository;
 import com.imt.framework.web.delivecrous.repositories.UserRepository;
 
 import de.mkammerer.argon2.Argon2;
@@ -30,6 +31,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserResource {
 	@Autowired
 	private UserRepository userRepository;
+	
+	public void setUserRepository(UserRepository userRepository) {
+    	this.userRepository = userRepository;
+    }
 
 	public UserResource() {
 	}
