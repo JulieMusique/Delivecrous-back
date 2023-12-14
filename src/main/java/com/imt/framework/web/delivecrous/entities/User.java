@@ -1,6 +1,8 @@
 // Source code is decompiled from a .class file using FernFlower decompiler.
 package com.imt.framework.web.delivecrous.entities;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import jakarta.persistence.Column;
@@ -8,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+@JsonPropertyOrder
 @Entity
 @Table(name = "users")
 public class User {

@@ -24,6 +24,7 @@ public class Dish {
         allergenList = new HashSet<>();
         categories = new HashSet<>();
     }
+    
     public long getIdDish() {
         return idDish;
     }
@@ -115,8 +116,9 @@ public class Dish {
             return false;
         if(!this.allergenList.containsAll(dish.allergenList))
             return false;
-        if(this.ingredientList.equals(dish.ingredientList))
+        if(!this.ingredientList.equals(dish.ingredientList))
             return false;
         return true;
     }
+    
 }
